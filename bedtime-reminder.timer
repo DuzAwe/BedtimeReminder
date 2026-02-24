@@ -1,0 +1,11 @@
+[Unit]
+Description=Bedtime Reminder Timer
+Requires=bedtime-reminder.service
+
+[Timer]
+# Run at 11:00 PM every day
+OnCalendar=*-*-* 23:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
