@@ -16,7 +16,7 @@ export PULSE_SERVER="unix:${XDG_RUNTIME_DIR}/pulse/native"
 # Function to select a random file from a directory
 # Uses null delimiter to handle filenames with spaces
 select_random_file() {
-    find "$AUDIO_DIR" -type f \( -name "*.ogg" -o -name "*.mp3" -o -name "*.wav" \) -print0 | shuf -z -n1
+    find "$AUDIO_DIR" -type f \( -name "*.ogg" -o -name "*.mp3" -o -name "*.wav" \) -print0 | shuf -z -n1 | tr -d '\0'
 }
 
 # Get a random audio file
