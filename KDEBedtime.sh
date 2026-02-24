@@ -28,8 +28,8 @@ if [ -z "$AUDIO_FILE" ]; then
     exit 1
 fi
 
-# Send a notification with the filename
-notify-send "Evening Alert" "Playing: $(basename "$AUDIO_FILE")"
+# Send a critical notification with the filename
+notify-send -u critical "Evening Alert" "Playing: $(basename "$AUDIO_FILE")"
 
 # Play the random audio file
 paplay "$AUDIO_FILE"
