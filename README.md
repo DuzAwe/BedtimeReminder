@@ -39,7 +39,7 @@ Why put this on GitHub? It backs it up and might be something someone else can u
    This will:
    - Copy the script to `~/.local/bin/bedtime-reminder.sh`
    - Install systemd service and timer files
-   - Enable and start the timer (default: runs at 10:00 PM daily)
+   - Enable and start the timer (default: runs at 11:00 PM daily)
 
 3. To customize the schedule, edit `~/.config/systemd/user/bedtime-reminder.timer` and change the `OnCalendar` value, then run:
 
