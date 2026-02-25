@@ -103,7 +103,6 @@ To remove the service:
 - This is Wayland-friendly and uses `XDG_RUNTIME_DIR` and the user D-Bus socket instead of Xorg variables.
 - It works best as a systemd **user** service or when run from your logged-in session.
 - If you are not logged in, the user runtime directory and session bus are not available, so notifications and audio will fail.
- - The timer uses `Persistent=false` by default so it will **not** fire on login to catch up after a missed schedule. If you want catch-up behavior, set it to `true`.
 
 ## Troubleshooting
 - "No audio files found": double-check `AUDIO_DIR` and file extensions.
