@@ -10,7 +10,7 @@ Why put this on GitHub? It backs it up and might be something someone else can u
 
 ## What it does
 - Picks a random `.ogg`, `.mp3`, or `.wav` from a folder.
-- Shows a notification with the file name.
+- Shows a critical notification with the file name (bypasses Do Not Disturb).
 - Plays the audio with `paplay`.
 - Can be installed as a systemd user service to run automatically at a scheduled time.
 
@@ -22,14 +22,7 @@ Why put this on GitHub? It backs it up and might be something someone else can u
 ## Setup
 
 ### Quick Installation (Recommended)
-1. Edit `KDEBedtime.sh` and set your username and audio directory:
-
-   ```bash
-   USER_NAME="your_username"
-   AUDIO_DIR="/path/to/your/audio/files"
-   ```
-
-2. Run the installation script:
+1. Run the installation script:
 
    ```bash
    chmod +x install.sh
@@ -38,10 +31,14 @@ Why put this on GitHub? It backs it up and might be something someone else can u
 
    This will:
    - Copy the script to `~/.local/bin/bedtime-reminder.sh`
-   - Install systemd service and timer files
-   - Enable and start the timer (default: runs at 11:00 PM daily)
+   - Copy bundled sounds to `~/.local/share/bedtime-reminder/Sounds`
+   - Auto-configure your username and the default audio directory
+   - Prompt for your bedtime and whether to use bundled sounds
+   - Set `AUDIO_DIR` and install systemd service and timer files
+   - Enable and start the timer at your chosen time
+   - Play a test notification and sound to confirm everything works
 
-3. To customize the schedule, edit `~/.config/systemd/user/bedtime-reminder.timer` and change the `OnCalendar` value, then run:
+2. To customize the schedule later, edit `~/.config/systemd/user/bedtime-reminder.timer` and change the `OnCalendar` value, then run:
 
    ```bash
    systemctl --user daemon-reload
@@ -49,7 +46,7 @@ Why put this on GitHub? It backs it up and might be something someone else can u
    ```
 
 ### Manual Setup
-1. Edit `KDEBedtime.sh` and set your username and audio directory:
+1. Edit `KDEBedtime.sh` and set your username and audio directory (required for manual setup):
 
    ```bash
    USER_NAME="your_username"
@@ -60,6 +57,13 @@ Why put this on GitHub? It backs it up and might be something someone else can u
 
    ```bash
    chmod +x KDEBedtime.sh
+   ```
+
+3. If you want the bundled sounds, copy them and set `AUDIO_DIR` to match:
+
+   ```bash
+   mkdir -p ~/.local/share/bedtime-reminder
+   cp -r Sounds ~/.local/share/bedtime-reminder/
    ```
 
 ## Usage
@@ -85,12 +89,33 @@ systemctl --user stop bedtime-reminder.timer
 
 # Disable the timer (won't start on login)
 systemctl --user disable bedtime-reminder.timer
+
+# If it triggers on login, the service was enabled; disable it
+systemctl --user disable --now bedtime-reminder.service
 ```
 
 ### Manual Run
 ```bash
 ./KDEBedtime.sh
 ```
+
+## Using Your Own Sounds
+The installer will ask if you want to use bundled sounds or provide your own directory during installation.
+
+If you chose bundled sounds, they're located at:
+
+```
+~/.local/share/bedtime-reminder/Sounds
+```
+
+To switch to custom audio files after installation:
+1. Put your `.ogg`, `.mp3`, or `.wav` files in a folder you control.
+2. Edit `~/.local/bin/bedtime-reminder.sh` and set `AUDIO_DIR` to that folder.
+3. Restart the timer so the change applies:
+
+   ```bash
+   systemctl --user restart bedtime-reminder.timer
+   ```
 
 ## Uninstall
 To remove the service:
@@ -108,3 +133,11 @@ To remove the service:
 - "No audio files found": double-check `AUDIO_DIR` and file extensions.
 - Notifications not showing: verify `notify-send` is installed and your `DBUS_SESSION_BUS_ADDRESS` and `XDG_RUNTIME_DIR` are correct.
 - Audio not playing: confirm `paplay` works from your terminal and that your audio server is running.
+- Triggers on login: make sure the service is not enabled and only the timer is enabled.
+
+## Acknowledgments
+- Quack sound: https://pixabay.com/sound-effects/075176-duck-quack-40345/
+- Sound Effect by freesound_community from Pixabay
+- Ducktoy: https://quicksounds.com/sound/22456/duck-toy-sound
+- Inspiration: https://github.com/elly-code/reminduck
+- First bug tester: Chris (Thank you)

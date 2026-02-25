@@ -7,6 +7,3 @@ Type=oneshot
 User=%u
 Environment="DISPLAY=:0"
 ExecStart=/home/%u/.local/bin/bedtime-reminder.sh
-
-[Install]
-WantedBy=default.target
