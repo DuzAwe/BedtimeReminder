@@ -35,8 +35,8 @@ Why put this on GitHub? It backs it up and might be something someone else can u
    - Auto-configure your username and the default audio directory
    - Prompt for your bedtime and whether to use bundled sounds
    - Set `AUDIO_DIR` and install systemd service and timer files
-   - Enable and start the timer at your chosen time
-   - Play a test notification and sound to confirm everything works
+   - Enable and start the timer at your chosen time (defaults to 23:00)
+   - Play a test notification and sound to confirm everything works once installed
 
 2. To customize the schedule later, edit `~/.config/systemd/user/bedtime-reminder.timer` and change the `OnCalendar` value, then run:
 
@@ -134,6 +134,11 @@ To remove the service:
 - Notifications not showing: verify `notify-send` is installed and your `DBUS_SESSION_BUS_ADDRESS` and `XDG_RUNTIME_DIR` are correct.
 - Audio not playing: confirm `paplay` works from your terminal and that your audio server is running.
 - Triggers on login: make sure the service is not enabled and only the timer is enabled.
+
+## License
+This project's code is licensed under GPL-3.0. See the [LICENSE](LICENSE) file for details.
+
+**Note:** The bundled sound files in the `Sounds/` directory have separate licenses from third-party sources. See [Sounds/LICENSE](Sounds/LICENSE) for details.
 
 ## Acknowledgments
 - Quack sound: https://pixabay.com/sound-effects/075176-duck-quack-40345/
