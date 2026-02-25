@@ -29,7 +29,7 @@ if [ -z "$AUDIO_FILE" ]; then
 fi
 
 # Send a critical notification with the filename
-notify-send -u critical "Evening Alert" "Playing: $(basename "$AUDIO_FILE")"
+notify-send -u critical "Go To Bed!!!" "Playing: $(basename "$AUDIO_FILE")"
 
 # Play the random audio file
 paplay "$AUDIO_FILE"
