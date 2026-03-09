@@ -1,4 +1,4 @@
-# KDE Bedtime
+# Bedtime Reminder
 I built this quickly....maybe too quickly.
 
 It plays a random audio file and shows a desktop notification on KDE (or any Linux desktop with `notify-send` and PulseAudio/PipeWire). 
